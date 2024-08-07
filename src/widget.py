@@ -1,5 +1,6 @@
 import masks
 
+
 def mask_account_card(data_card: str) -> str:
     '''Функция, которая умеет обрабатывать информацию как о картах, так и о счетах'''
     if 'Счет' in data_card:
@@ -16,8 +17,6 @@ def mask_account_card(data_card: str) -> str:
         return data_card_mask
 
 
-print(mask_account_card('Счет 64686473678894779589'))
-
 def get_date(card_date:str) -> str:
     '''Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
     и возвращает строку с датой в формате "ДД.ММ.ГГГГ")'''
@@ -25,7 +24,11 @@ def get_date(card_date:str) -> str:
     month = card_date[5:7] + '.'
     year = card_date[:4]
     total_date = day + month + year
+
     return total_date
+
+
+print(mask_account_card('Счет 64686473678894779589'))
 
 print(get_date('2024-03-11T02:26:18.671407'))
 
