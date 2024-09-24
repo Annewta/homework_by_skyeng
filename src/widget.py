@@ -1,22 +1,72 @@
 from src import masks
 
+# def mask_account_card(data_card: str) -> str:
+#     """Функция, которая умеет обрабатывать информацию как о картах, так и о счетах"""
+#     if data_card != '' or len(data_card) > 22 or len(data_card) < 31:
+#         if "Счет" in data_card:
+#             number_score = "".join(el if el.isdigit() else "" for el in data_card)
+#             number_score_mask = masks.get_mask_account(number_score)
+#             name_score = "".join("" if el.isdigit() else el for el in data_card)
+#             data_mask = name_score + number_score_mask
+#         else:
+#             number_card = "".join(el if el.isdigit() else "" for el in data_card)
+#             number_card_mask = masks.get_mask_card_number(number_card)
+#             name_card = "".join("" if el.isdigit() else el for el in data_card)
+#             data_mask = name_card + number_card_mask
+#         return data_mask
+#     else:
+#         return 'Некорректные входные данные'
+
+# def mask_account_card(data_card: str) -> str:
+#     """Функция, которая умеет обрабатывать информацию как о картах, так и о счетах"""
+#     if data_card != '' and len(data_card) >= 31 and len(data_card) <= 22:
+#         raise ValueError("Некорректные входные данные")
+#
+#     elif "Счет" in data_card:
+#         number_score = "".join(el if el.isdigit() else "" for el in data_card)
+#         number_mask = masks.get_mask_account(number_score)
+#         data_mask =  name_card + number_mask
+#         return (data_mask)
+#
+#     else:
+#         number_card = "".join(el if el.isdigit() else "" for el in data_card)
+#         card_mask = masks.get_mask_card_number(number_card)
+#         data_mask = name_card + number_card_mask
+#         return (data_mask)
+
+# def mask_account_card(data_card: str) -> str:
+#     """Функция, которая умеет обрабатывать информацию как о картах, так и о счетах"""
+#     if data_card != '' and len(data_card) >= 31 and len(data_card) <= 22:
+#         raise ValueError("Некорректные входные данные")
+#
+#     elif "Счет" in data_card:
+#         number_score = "".join(el if el.isdigit() else "" for el in data_card)
+#         number_score_mask = masks.get_mask_account(number_score)
+#         data_mask = f'Счет {number_score_mask}'
+#
+#     else:
+#         number_card = "".join(el if el.isdigit() else "" for el in data_card)
+#         number_card_mask = masks.get_mask_card_number(number_card)
+#         name_card = "".join("" if el.isdigit() else el for el in data_card)
+#         data_mask = name_card + number_card_mask
+#     return data_mask
+
 def mask_account_card(data_card: str) -> str:
     """Функция, которая умеет обрабатывать информацию как о картах, так и о счетах"""
-    if data_card != '' or len(data_card) > 22 or len(data_card) < 31:
-        if "Счет" in data_card:
-            number_score = "".join(el if el.isdigit() else "" for el in data_card)
-            number_score_mask = masks.get_mask_account(number_score)
-            name_score = "".join("" if el.isdigit() else el for el in data_card)
-            data_mask = name_score + number_score_mask
-        else:
-            number_card = "".join(el if el.isdigit() else "" for el in data_card)
-            number_card_mask = masks.get_mask_card_number(number_card)
-            name_card = "".join("" if el.isdigit() else el for el in data_card)
-            data_mask = name_card + number_card_mask
-        return data_mask
-    else:
-        return 'Некорректные входные данные'
+    if data_card != '' and len(data_card) >= 31 and len(data_card) <= 22:
+        raise ValueError("Некорректные входные данные")
 
+    elif "Счет" in data_card:
+        number_score = "".join(el if el.isdigit() else "" for el in data_card)
+        number_score_mask = masks.get_mask_account(number_score)
+        data_mask = f'Счет {number_score_mask}'
+
+    else:
+        number_card = "".join(el if el.isdigit() else "" for el in data_card)
+        number_card_mask = masks.get_mask_card_number(number_card)
+        name_card = "".join("" if el.isdigit() else el for el in data_card)
+        data_mask = name_card + number_card_mask
+    return data_mask
 
 def get_date(card_date: str) -> str:
     """Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"

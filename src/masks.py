@@ -1,9 +1,7 @@
 def get_mask_card_number(card: str) -> str:
     """Функция принимает на вход номер карты в виде числа
     и возвращает маску номера по правилу XXXX XX** **** XXXX"""
-    card_star = card.replace(card[6:12], "******")
-    n = 4
-    card_mask = " ".join([card_star[i : i + n] for i in range(0, len(card_star), n)])
+    card_mask  = [num[:6] + " ****" + num[-4:] for num in card]
 
     return card_mask
 
@@ -14,7 +12,7 @@ print(get_mask_card_number("73654108430135874305"))
 def get_mask_account(score: str) -> str:
     """Функция принимает на вход номер счета в виде числа
     и возвращает маску номера по правилу **XXXX"""
-    score_mask = "**" + score[-4:]
+    score_mask = ["**" + num[-4:] for num in score]
 
     return score_mask
 
