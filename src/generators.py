@@ -65,16 +65,10 @@ transactions = (
     ]
 )
 def filter_by_currency(transactions, currency):
-    transaction = []
-    for el in transactions:
-        if el['operationAmount']['currency'] == currency:
-            transaction.append(el)
-            return transaction
-        else:
-            return ['Транзакции с такой валютой нет']
+    return (el for el in transactions if el['operationAmount']['currency'] == currency)
 
-
-print(filter_by_currency(transactions, 'USD'))
+for el in filter_by_currency(transactions, "USD"):
+    print(el)
 
 def transaction_descriptions(transactions):
     for transaction in transactions:
