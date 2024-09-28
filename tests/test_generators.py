@@ -2,7 +2,7 @@ from src.generators import filter_by_currency
 from src.generators import transaction_descriptions
 from src.generators import card_number_generator
 def test_empty_list(empty_transactions):
-    assert filter_by_currency(empty_transactions, 'USD') == []
+    assert filter_by_currency(empty_transactions, 'USD') == 'Список транзакция пуст'
 
 def test_with_transaction(transactions_with_usd):
     result = [{
@@ -31,8 +31,8 @@ def test_with_transaction(transactions_with_usd):
 
 def test_without_transaction(transactions_without_usd):
     currency = 'USD'
-    result = 'Транзакции с такой валютой нет'
-    assert filter_by_currency(transactions_without_usd, 'USD') == result
+    result == ValueError ('Транзакции с такой валютой нет')
+    assert filter_by_currency(transactions_without_usd, currency) == result
 
 def test_one_descriptions(single_descriptions):
     result = ["Перевод организации"]
@@ -49,9 +49,7 @@ def test_none_descriptions(empty_transactions):
 def test_card_number_generator(setup_card_number_generator):
     start, end = setup_card_number_generator()
     generator = list(card_number_generator(start, end))
-    result = ['0000000000000000000', '0000000000000000001',
-                '0000000000000000002', '0000000000000000003',
-                '0000000000000000004', '0000000000000000005']
+    result = ['0000 0000 0000 0001','0000 0000 0000 0002','0000 0000 0000 0003','0000 0000 0000 0004','0000 0000 0000 0005']
     assert result == generator
 
 def test_one_number_generator(setup_card_number_generator):

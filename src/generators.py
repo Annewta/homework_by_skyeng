@@ -1,5 +1,3 @@
-import random
-
 transactions = (
     [
         {
@@ -67,10 +65,25 @@ transactions = (
 )
 def filter_by_currency(transactions:dict, currency:str) -> dict:
     '''Функция, которая принимает список словарей и возвращает итератор'''
-    return (el for el in transactions if el['operationAmount']['currency'] == currency)
+    if not transactions:
+        return iter([])
 
-for el in filter_by_currency(transactions, "USD"):
-    print(el)
+    for el in transactions:
+        if not isinstance(el, dict):
+            raise ValueError("Каждая транзакция должна быть словарем.")
+        elif el['operationAmount']['currency'] == currency:
+            yield el
+
+# for el in filter_by_currency(transactions, 'USD'):
+#     print(el)
+
+try:
+    usd_transactions = filter_by_currency(transactions, 'USD')
+    # Печатаем отфильтрованные транзакции
+    for transaction in usd_transactions:
+        print(transaction)
+except ValueError as e:
+    print(f"Ошибка: {e}")
 
 def transaction_descriptions(transactions:dict) -> str:
     '''Генератор, который принимает список словарей и возвращает описание каждой операции по очереди'''
@@ -92,5 +105,5 @@ def card_number_generator(start:int, end:int) -> str:
         formatted_card_number = f"{formatted_card_number[:4]} {formatted_card_number[4:8]} {formatted_card_number[8:12]} {formatted_card_number[12:]}"
         yield formatted_card_number
 
-for card_num in card_number_generator(1, 9):
+for card_num in card_number_generator(1, 5):
     print(card_num)
