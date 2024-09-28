@@ -65,13 +65,15 @@ transactions = (
         }
     ]
 )
-def filter_by_currency(transactions, currency):
+def filter_by_currency(transactions:dict, currency:str) -> dict:
+    '''Функция, которая принимает список словарей и возвращает итератор'''
     return (el for el in transactions if el['operationAmount']['currency'] == currency)
 
 for el in filter_by_currency(transactions, "USD"):
     print(el)
 
-def transaction_descriptions(transactions):
+def transaction_descriptions(transactions:dict) -> str:
+    '''Генератор, который принимает список словарей и возвращает описание каждой операции по очереди'''
     for transaction in transactions:
         yield transaction['description']
 
@@ -81,7 +83,8 @@ for description in transaction_descriptions(transactions):
     else:
         print('[]')
 
-def card_number_generator(start, end):
+def card_number_generator(start:int, end:int) -> str:
+    ''' Генератор номеров банковских карт, который должен генерировать номера карт в формате XXXX XXXX XXXX XXXX'''
     if start < 1 or end > 9999999999999999 or start > end:
         raise ValueError("Диапазон должен быть от 0000 0000 0000 0001 до 9999 9999 9999 9999.")
     for i in range(int(start), int(end) + 1):
