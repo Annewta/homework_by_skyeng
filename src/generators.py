@@ -1,3 +1,4 @@
+import random
 
 transactions = (
     [
@@ -81,8 +82,12 @@ for description in transaction_descriptions(transactions):
         print('[]')
 
 def card_number_generator(start, end):
-    for i in range(int(start),int(end) + 1):
-        yield f"{i:019d}"
+    if start < 1 or end > 9999999999999999 or start > end:
+        raise ValueError("Диапазон должен быть от 0000 0000 0000 0001 до 9999 9999 9999 9999.")
+    for i in range(int(start), int(end) + 1):
+        formatted_card_number = f"{i:016}"
+        formatted_card_number = f"{formatted_card_number[:4]} {formatted_card_number[4:8]} {formatted_card_number[8:12]} {formatted_card_number[12:]}"
+        yield formatted_card_number
 
 for card_num in card_number_generator(1, 9):
     print(card_num)
