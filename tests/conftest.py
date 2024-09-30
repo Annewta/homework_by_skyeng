@@ -2,11 +2,11 @@ import pytest
 
 @pytest.fixture
 def fix_mask_card():
-    return ['7000792289606361', '7365410843013587', '70AB79228960DR61', '7365410843013587154132423122','']
+    return ['7000792289606361', '7365410843013587', '70AB79228960DR61']
 
 @pytest.fixture
 def fix_mask_account():
-    return ['73654108430135874305', '73351653505463512596', '7365410843013587154132423122', '7335165350546351ADCV', '123', '']
+    return ['73654108430135874305', '73351653505463512596', '7335165350546351ADCV']
 
 @pytest.fixture
 def fix_mask_account_card():
@@ -15,6 +15,14 @@ def fix_mask_account_card():
 @pytest.fixture
 def fix_mask_account_card_type():
     return ['Счет 64686473678894779589','Visa Platinum 7000792289606361', 'Maestro 7000792289606361', 'MasterCard 7158300734726758', 'Счет 35383033474447895560']
+
+@pytest.fixture
+def fix_mask_empty():
+    return ''
+
+@pytest.fixture
+def fix_mask_error():
+    return ['112','asdasd', '1234567891015']
 
 @pytest.fixture
 def fix_mask_account_card_error():
