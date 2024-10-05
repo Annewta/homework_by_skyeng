@@ -65,25 +65,30 @@ transactions = (
 )
 def filter_by_currency(transactions:dict, currency:str) -> dict:
     '''Функция, которая принимает список словарей и возвращает итератор'''
-    if not transactions:
-        return iter([])
+    if transactions != []:
+        for el in transactions:
+            if el['operationAmount']['currency'] == currency:
+                return el
+            else:
+                yield 'Транзакций с такой валютой нет'
+    else:
+        yield 'Список транзакций пуст'
 
-    for el in transactions:
-        if not isinstance(el, dict):
-            raise ValueError("Каждая транзакция должна быть словарем.")
-        elif el['operationAmount']['currency'] == currency:
-            yield el
+for el in filter_by_currency([{
+            "id": 873106923,
+            "state": "EXECUTED",
+            "date": "2019-03-23T01:09:46.296404",
+            "operationAmount": {
+                "amount": "43318.34",
+                "currency": "RUB"
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160"
+        }
+    ], 'USD'):
+    print(el)
 
-# for el in filter_by_currency(transactions, 'USD'):
-#     print(el)
-
-try:
-    usd_transactions = filter_by_currency(transactions, 'USD')
-    # Печатаем отфильтрованные транзакции
-    for transaction in usd_transactions:
-        print(transaction)
-except ValueError as e:
-    print(f"Ошибка: {e}")
 
 def transaction_descriptions(transactions:dict) -> str:
     '''Генератор, который принимает список словарей и возвращает описание каждой операции по очереди'''
@@ -98,12 +103,15 @@ for description in transaction_descriptions(transactions):
 
 def card_number_generator(start:int, end:int) -> str:
     ''' Генератор номеров банковских карт, который должен генерировать номера карт в формате XXXX XXXX XXXX XXXX'''
-    if start < 1 or end > 9999999999999999 or start > end:
-        raise ValueError("Диапазон должен быть от 0000 0000 0000 0001 до 9999 9999 9999 9999.")
-    for i in range(int(start), int(end) + 1):
-        formatted_card_number = f"{i:016}"
-        formatted_card_number = f"{formatted_card_number[:4]} {formatted_card_number[4:8]} {formatted_card_number[8:12]} {formatted_card_number[12:]}"
-        yield formatted_card_number
+    if str(start).isalpha() and str(end).isalpha():
+        yield 'Некорректные входные данные'
+    elif start < 1 or end > 9999999999999999 or start > end:
+        yield "Диапазон должен быть от 0000 0000 0000 0001 до 9999 9999 9999 9999"
+    else:
+        for i in range(int(start), int(end) + 1):
+            formatted_card_number = f"{i:016}"
+            formatted_card_number = f"{formatted_card_number[:4]} {formatted_card_number[4:8]} {formatted_card_number[8:12]} {formatted_card_number[12:]}"
+            yield formatted_card_number
 
-for card_num in card_number_generator(1, 5):
+for card_num in card_number_generator('j', 'j'):
     print(card_num)
