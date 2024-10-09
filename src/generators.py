@@ -65,28 +65,11 @@ transactions = (
 )
 def filter_by_currency(transactions:dict, currency:str) -> dict:
     '''Функция, которая принимает список словарей и возвращает итератор'''
-    if transactions != []:
-        for el in transactions:
-            if el['operationAmount']['currency'] == currency:
-                return el
-            else:
-                yield 'Транзакций с такой валютой нет'
-    else:
-        yield 'Список транзакций пуст'
+    for el in transactions:
+        if el['operationAmount']['currency'] == currency:
+            yield el
 
-for el in filter_by_currency([{
-            "id": 873106923,
-            "state": "EXECUTED",
-            "date": "2019-03-23T01:09:46.296404",
-            "operationAmount": {
-                "amount": "43318.34",
-                "currency": "RUB"
-            },
-            "description": "Перевод со счета на счет",
-            "from": "Счет 44812258784861134719",
-            "to": "Счет 74489636417521191160"
-        }
-    ], 'USD'):
+for el in filter_by_currency(transactions, 'USD'):
     print(el)
 
 

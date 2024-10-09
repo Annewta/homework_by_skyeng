@@ -33,13 +33,14 @@ def fix_mask_account_card_error():
 
 @pytest.fixture
 def fix_get_date():
-    return ['2024-03-11T02:26:18.671407','2025-12-11T02:26:18.671407', '2024-03-11T02:2', '2024-03-11T0255555555:26:18.671407', '6651665', '', 'hgyjd462']
+    return ['2024-03-11T02:26:18671407','2025-12-11T02:26:18.671407', '2024-03-11T02:2', '2024-05-11T0255555555:26:18.671407', '6651665', '', 'hgyjd462']
 
 
 # Фикстуры для файла generators-----------------------------------------
 @pytest.fixture()
 def empty_transactions():
-    return []
+    transactions = []
+    return transactions
 
 @pytest.fixture()
 def transactions_with_usd():
